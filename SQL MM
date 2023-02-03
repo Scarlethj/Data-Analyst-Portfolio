@@ -1,0 +1,82 @@
+SQL murder mystery
+
+#Read the table names
+SELECT name 
+  FROM sqlite_master
+ where type = 'table'
+ 
+#structure of the table
+SELECT sql 
+  FROM sqlite_master
+ where name = 'person'
+ 
+#pull out report
+SELECT *
+FROM crime_scene_report
+WHERE date = 20180115 AND city = 'SQL City' AND type = 'murder'
+
+#Pull out file of persons
+SELECT *
+FROM person
+WHERE name LIKE 'Annabel %'
+
+
+SELECT *
+FROM interview
+JOIN person
+ON person_id = id
+WHERE address_street_name = 'Northwestern Dr'
+
+#Read Testimony of Witnesses 
+SELECT *
+FROM interview
+JOIN person
+ON person_id = id
+WHERE name = 'Annabel Miller' OR name = 'Morty Schapiro'
+
+#Identifying possible suspect through license plate from testimony
+SELECT *
+FROM person
+JOIN drivers_license driver
+ON license_id = driver.id
+WHERE plate_number LIKE '%h42w%'
+
+#From suspects who has membership at gym
+SELECT *
+FROM get_fit_now_member
+JOIN person AS ppl
+ON ppl.id = person_id
+WHERE ppl.id IN (51739,67318,78193)
+
+#Confirm suspect was checked in that day at gym
+SELECT *
+FROM get_fit_now_check_in
+WHERE membership_id = '48Z55' AND check_in_date = 20180109
+
+#Confirmation that they were the killer
+INSERT INTO solution VALUES (1, 'Jeremy Bowers');
+        
+        SELECT value FROM solution;
+       
+       
+#Transcript from suspected killer
+SELECT *
+FROM interview
+WHERE person_id = 67318
+
+#Identifying true killer
+SELECT *
+FROM drivers_license
+WHERE hair_color = 'red' AND car_make = 'Tesla' AND gender = 'female'
+
+SELECT *
+FROM person
+JOIN facebook_event_checkin
+ON person_id =id
+WHERE license_id IN (202298,291182,918773) AND event_name = 'SQL Symphony Concert'
+
+#True Mastermind
+INSERT INTO solution VALUES (1, 'Miranda Priestly');
+        
+        SELECT value FROM solution;
+
