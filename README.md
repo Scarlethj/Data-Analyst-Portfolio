@@ -1,2 +1,2 @@
-# data-project
-Data analytics projects
+# SQL Portfolio
+Data analytics SQL, Python, Excel projects
